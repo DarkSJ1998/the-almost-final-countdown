@@ -46,6 +46,9 @@ export default function TimerChallenge({ title, targetTime }) {
 	if (remainingTime <= 0) {
 		dialogRef.current.open();
 		clearInterval(timer.current);
+	}
+
+	function handleTimerReset() {
 		setRemainingTime(targetTime * 1000);
 	}
 
@@ -59,14 +62,14 @@ export default function TimerChallenge({ title, targetTime }) {
 	function handleStop() {
 		dialogRef.current.open();
 		clearInterval(timer.current);
-		setRemainingTime(targetTime * 1000);
 	}
 
 	return (
 		<>
 			<ResultModal
-				result='lost'
+				remainingTime={remainingTime}
 				targetTime={targetTime}
+				onTimerReset={handleTimerReset}
 				ref={dialogRef}
 			/>
 
