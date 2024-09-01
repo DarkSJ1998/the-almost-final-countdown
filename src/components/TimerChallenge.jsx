@@ -21,12 +21,21 @@ export default function TimerChallenge({ title, targetTime }) {
 	 */
 	const timer = useRef();
 
+	/**
+	 * This ref is used to access the dialog element inside the
+	 * `ResultModal`.
+	 */
+	const dialogRef = useRef();
+
 	const [timerStarted, setTimerStarted] = useState(false);
 	const [timerExpired, setTimerExpired] = useState(false);
 
 	function handleStart() {
 		timer.current = setTimeout(() => {
 			setTimerExpired(true);
+
+			// Showing the `ResultModal` using `dialogRef`
+			dialogRef.current.showModal();
 		}, targetTime * 1000);
 
 		setTimerStarted(true);
@@ -38,9 +47,11 @@ export default function TimerChallenge({ title, targetTime }) {
 
 	return (
 		<>
-			{timerExpired && (
-				<ResultModal result='lost' targetTime={targetTime} />
-			)}
+			<ResultModal
+				result='lost'
+				targetTime={targetTime}
+				ref={dialogRef}
+			/>
 
 			<section className='challenge'>
 				<h2>{title}</h2>
