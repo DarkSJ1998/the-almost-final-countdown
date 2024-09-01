@@ -35,7 +35,7 @@ export default function TimerChallenge({ title, targetTime }) {
 			setTimerExpired(true);
 
 			// Showing the `ResultModal` using `dialogRef`
-			dialogRef.current.showModal();
+			dialogRef.current.open();
 		}, targetTime * 1000);
 
 		setTimerStarted(true);
